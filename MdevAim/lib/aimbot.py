@@ -10,6 +10,7 @@ import time
 import torch
 import uuid
 import win32api
+import win32con
 
 from termcolor import colored
 
@@ -52,12 +53,12 @@ class Aimbot:
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     screen = mss.mss()
-    pixel_increment = 0.66 #controls how many pixels the mouse moves for each relative movement
+    pixel_increment = 0.87 #controls how many pixels the mouse moves for each relative movement
     with open("lib/config/config.json") as f:
         sens_config = json.load(f)
     aimbot_status = colored("ENABLED", 'green')
 
-    def __init__(self, box_constant = 800, collect_data = False, mouse_delay = 0.0001, debug = False):
+    def __init__(self, box_constant = 740, collect_data = False, mouse_delay = 0.0001, debug = False):
         #controls the initial centered box width and height of the "Lunar Vision" window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
@@ -69,7 +70,7 @@ class Aimbot:
             print(colored("[!] CUDA ACCELERATION IS UNAVAILABLE", "red"))
             print(colored("[!] Check your PyTorch installation, else performance will be poor", "red"))
 
-        self.model.conf = 0.80 # base confidence threshold (or base detection (0-1)
+        self.model.conf = 0.70 # base confidence threshold (or base detection (0-1)
         self.model.iou = 1.00 # NMS IoU (0-1)
         self.collect_data = collect_data
         self.mouse_delay = mouse_delay
@@ -128,7 +129,7 @@ class Aimbot:
     #generator yields pixel tuples for relative movement
     def interpolate_coordinates_from_center(absolute_coordinates, scale):
         diff_x = (absolute_coordinates[0] - 960) * scale/Aimbot.pixel_increment
-        diff_y = (absolute_coordinates[1] - 540) * scale/Aimbot.pixel_increment
+        diff_y = (absolute_coordinates[1] - 520) * scale/Aimbot.pixel_increment
         length = int(math.dist((0,0), (diff_x, diff_y)))
         if length == 0: return
         unit_x = (diff_x/length) * Aimbot.pixel_increment
@@ -166,7 +167,7 @@ class Aimbot:
                     x2y2 = [int(x.item()) for x in box[2:]]
                     x1, y1, x2, y2, conf = *x1y1, *x2y2, conf.item()
                     height = y2 - y1
-                    relative_head_X, relative_head_Y = int((x1 + x2)/2), int((y1 + y2)/2 - height/3.4) #offset to roughly approximate the head using a ratio of the height
+                    relative_head_X, relative_head_Y = int((x1 + x2)/2), int((y1 + y2)/2 - height/2.1) #offset to roughly approximate the head using a ratio of the height
                     own_player = x1 < 15 or (x1 < self.box_constant/5 and y2 > self.box_constant/1.2) #helps ensure that your own player is not regarded as a valid detection
 
                     #calculate the distance between each detection and the crosshair at (self.box_constant/2, self.box_constant/2)
@@ -197,6 +198,9 @@ class Aimbot:
                     x1, y1 = closest_detection["x1y1"]
                     if Aimbot.is_target_locked(absolute_head_X, absolute_head_Y):
                         cv2.putText(frame, "LOCKED", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 244, 113), 2) #draw the confidence labels on the bounding boxes
+                        
+                        left_click(x, y)
+                        
                     else:
                         cv2.putText(frame, "TARGETING", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 113, 244), 2) #draw the confidence labels on the bounding boxes
 

@@ -52,7 +52,7 @@ if __name__ == "__main__":
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
     print(colored('''
-    FortnitePythonAimAsist by:
+    FortnitePythonAimAsist (VIEaim) by:
        _  _    ___   ___ 
       / \/ \   |  \  |   \      /
      / /\/\ \  |   \ |__  \    /
@@ -62,10 +62,9 @@ if __name__ == "__main__":
       
 by--mikusgszyp (on github)
 [INFO] to aim, hold left mouse button
-[INFO] I reccomend to install CUDA toolkit (nvidia)
 [INFO] set game sensivity, to this:
-X and Y sensivity: 13.0
-Targeting and Scoping sensivity: 35.0
+X and Y sensivity: 15.2
+Targeting and Scoping sensivity: 37.0
     (Neural Network Aimbot)''', "blue"))
 
     path_exists = os.path.exists("lib/config/config.json")
