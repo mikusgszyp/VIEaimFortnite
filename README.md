@@ -19,7 +19,7 @@ in setup select python addon
 
 after install reboot PC
 
-3. download and extract relase and run "install the req.bat" 
+3. download and extract relase (or repo) and run "install the req.bat" 
 (don't close cmd, it will close automaticly after install)
 
 4. Run via "run.bat" file
