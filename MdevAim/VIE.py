@@ -17,9 +17,9 @@ def on_release(key):
         pass
 
 def main():
-    global lunar
-    lunar = Aimbot(collect_data = "collect_data" in sys.argv)
-    lunar.start()
+    global mdev
+    mdev = Aimbot(collect_data = "collect_data" in sys.argv)
+    mdev.start()
 
 def setup():
     path = "lib/config"
@@ -50,7 +50,11 @@ def setup():
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+    print(colored('''
+    [WARNING!] You need nvidia geforce 1050 or newer to run this without problems!
+    ONLY Nvidia supported
 
+    If CUDA acceleration doesn't work, then install CUDA toolskit 11 from setup folder''', "red"))
     print(colored('''
     FortnitePythonAimAsist (VIEaim) by:
        _  _    ___   ___ 

@@ -59,7 +59,7 @@ class Aimbot:
     aimbot_status = colored("ENABLED", 'green')
 
     def __init__(self, box_constant = 740, collect_data = False, mouse_delay = 0.0001, debug = False):
-        #controls the initial centered box width and height of the "Lunar Vision" window
+        #controls the initial centered box width and height of the window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
         print("[INFO] Loading the neural network model")
