@@ -52,9 +52,11 @@ if __name__ == "__main__":
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
     print(colored('''
     [WARNING!] You need nvidia geforce 1050 or newer to run this without problems!
-    ONLY Nvidia supported
+    ONLY Nvidia supported.
 
-    If CUDA acceleration doesn't work, then install CUDA toolskit 11 from setup folder''', "red"))
+    If you have CUDA toolkit installed and you got errors, then uninstall CUDA and re-launch install_the_req.bat
+
+    If that doesn't work, then install CUDA toolskit 11 from setup folder''', "red"))
     print(colored('''
     FortnitePythonAimAsist (VIEaim) by:
        _  _    ___   ___ 
