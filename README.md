@@ -3,6 +3,8 @@ fortnite undetectable aimbot
 
 # How to set up?
 
+NOTE: Before instalation, uninstall CUDA toolkit if you have one, and install NVIDIA driver (minimum v515)
+
 1. install python 3.8
 link: https://www.python.org/ftp/python/3.8.0/python-3.8.0-amd64.exe
 before install, uniinstall newer version of python, if you have one.
