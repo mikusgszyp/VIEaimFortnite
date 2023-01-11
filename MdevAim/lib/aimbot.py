@@ -87,7 +87,7 @@ class Aimbot:
         print(f"[!] AIMBOT IS [{Aimbot.aimbot_status}]", end = "\r")
 
     def left_click():
-        ctypes.windll.user32.mouse_event(0x02) #left mouse down
+        ctypes.windll.user32.mouse_event(0x46) #left mouse down
         Aimbot.sleep(0.0001)
         ctypes.windll.user32.mouse_event() #left mouse up
 
@@ -199,7 +199,6 @@ class Aimbot:
                     if Aimbot.is_target_locked(absolute_head_X, absolute_head_Y):
                         cv2.putText(frame, "LOCKED", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 244, 113), 2) #draw the confidence labels on the bounding boxes
                         
-                        left_click(x, y)
                         
                     else:
                         cv2.putText(frame, "TARGETING", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 113, 244), 2) #draw the confidence labels on the bounding boxes
