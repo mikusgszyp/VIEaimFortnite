@@ -53,7 +53,7 @@ class Aimbot:
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     screen = mss.mss()
-    pixel_increment = 0.87 #controls how many pixels the mouse moves for each relative movement
+    pixel_increment = 1.01 #controls how many pixels the mouse moves for each relative movement
     with open("lib/config/config.json") as f:
         sens_config = json.load(f)
     aimbot_status = colored("ENABLED", 'green')
@@ -124,14 +124,14 @@ class Aimbot:
         if self.debug: #remove this later
             print(f"TIME: {time.perf_counter() - start_time}")
             print("DEBUG: SLEEPING FOR 1 SECOND")
-            time.sleep(1)
+            time.sleep(0.1)
 
     #generator yields pixel tuples for relative movement
     def interpolate_coordinates_from_center(absolute_coordinates, scale):
         diff_x = (absolute_coordinates[0] - 960) * scale/Aimbot.pixel_increment
         diff_y = (absolute_coordinates[1] - 520) * scale/Aimbot.pixel_increment
         length = int(math.dist((0,0), (diff_x, diff_y)))
-        if length == 0: return
+        #REMOVED sleep when DISTANCE==0 [BETA VERSION(buggy)]
         unit_x = (diff_x/length) * Aimbot.pixel_increment
         unit_y = (diff_y/length) * Aimbot.pixel_increment
         x = y = sum_x = sum_y = 0
