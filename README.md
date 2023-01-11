@@ -25,3 +25,15 @@ after install reboot PC
 (don't close cmd, it will close automaticly after install)
 
 4. Run via "run.bat" file
+
+
+# Changelog
+
+1.3:
+-Fixed crash on newer versions of windows
+
+1.2:
+-Added TORCH fix when installing the req
+
+1.1:
+-Improved Stability
