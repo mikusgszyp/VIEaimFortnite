@@ -10,7 +10,6 @@ import time
 import torch
 import uuid
 import win32api
-import win32con
 
 from termcolor import colored
 
@@ -53,13 +52,13 @@ class Aimbot:
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     screen = mss.mss()
-    pixel_increment = 1.01 #controls how many pixels the mouse moves for each relative movement
+    pixel_increment = 3 #controls how many pixels the mouse moves for each relative movement
     with open("lib/config/config.json") as f:
         sens_config = json.load(f)
     aimbot_status = colored("ENABLED", 'green')
 
-    def __init__(self, box_constant = 740, collect_data = False, mouse_delay = 0.0001, debug = False):
-        #controls the initial centered box width and height of the window
+    def __init__(self, box_constant = 690, collect_data = False, mouse_delay = 0.0001, debug = False):
+        #controls the initial centered box width and height of the "Lunar Vision" window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
         print("[INFO] Loading the neural network model")
@@ -70,8 +69,8 @@ class Aimbot:
             print(colored("[!] CUDA ACCELERATION IS UNAVAILABLE", "red"))
             print(colored("[!] Check your PyTorch installation, else performance will be poor", "red"))
 
-        self.model.conf = 0.70 # base confidence threshold (or base detection (0-1)
-        self.model.iou = 1.00 # NMS IoU (0-1)
+        self.model.conf = 0.65 # base confidence threshold (or base detection (0-1)
+        self.model.iou = 0.65 # NMS IoU (0-1)
         self.collect_data = collect_data
         self.mouse_delay = mouse_delay
         self.debug = debug
@@ -87,9 +86,9 @@ class Aimbot:
         print(f"[!] AIMBOT IS [{Aimbot.aimbot_status}]", end = "\r")
 
     def left_click():
-        ctypes.windll.user32.mouse_event(0x46) #left mouse down
+        ctypes.windll.user32.mouse_event(0x0002) #left mouse down
         Aimbot.sleep(0.0001)
-        ctypes.windll.user32.mouse_event() #left mouse up
+        ctypes.windll.user32.mouse_event(0x0004) #left mouse up
 
     def sleep(duration, get_now = time.perf_counter):
         if duration == 0: return
@@ -124,14 +123,14 @@ class Aimbot:
         if self.debug: #remove this later
             print(f"TIME: {time.perf_counter() - start_time}")
             print("DEBUG: SLEEPING FOR 1 SECOND")
-            time.sleep(0.1)
+            time.sleep(0.6)
 
     #generator yields pixel tuples for relative movement
     def interpolate_coordinates_from_center(absolute_coordinates, scale):
         diff_x = (absolute_coordinates[0] - 960) * scale/Aimbot.pixel_increment
-        diff_y = (absolute_coordinates[1] - 520) * scale/Aimbot.pixel_increment
+        diff_y = (absolute_coordinates[1] - 540) * scale/Aimbot.pixel_increment
         length = int(math.dist((0,0), (diff_x, diff_y)))
-        #REMOVED sleep when DISTANCE==0 [BETA VERSION(buggy)]
+        if length == 0: return
         unit_x = (diff_x/length) * Aimbot.pixel_increment
         unit_y = (diff_y/length) * Aimbot.pixel_increment
         x = y = sum_x = sum_y = 0
@@ -167,7 +166,7 @@ class Aimbot:
                     x2y2 = [int(x.item()) for x in box[2:]]
                     x1, y1, x2, y2, conf = *x1y1, *x2y2, conf.item()
                     height = y2 - y1
-                    relative_head_X, relative_head_Y = int((x1 + x2)/2), int((y1 + y2)/2 - height/2.1) #offset to roughly approximate the head using a ratio of the height
+                    relative_head_X, relative_head_Y = int((x1 + x2)/2), int((y1 + y2)/2 - height/3.2) #offset to roughly approximate the head using a ratio of the height
                     own_player = x1 < 15 or (x1 < self.box_constant/5 and y2 > self.box_constant/1.2) #helps ensure that your own player is not regarded as a valid detection
 
                     #calculate the distance between each detection and the crosshair at (self.box_constant/2, self.box_constant/2)
@@ -198,8 +197,6 @@ class Aimbot:
                     x1, y1 = closest_detection["x1y1"]
                     if Aimbot.is_target_locked(absolute_head_X, absolute_head_Y):
                         cv2.putText(frame, "LOCKED", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 244, 113), 2) #draw the confidence labels on the bounding boxes
-                        
-                        
                     else:
                         cv2.putText(frame, "TARGETING", (x1 + 40, y1), cv2.FONT_HERSHEY_DUPLEX, 0.5, (115, 113, 244), 2) #draw the confidence labels on the bounding boxes
 
@@ -211,13 +208,13 @@ class Aimbot:
                 collect_pause = time.perf_counter()
             
             cv2.putText(frame, f"FPS: {int(1/(time.perf_counter() - start_time))}", (5, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (113, 116, 244), 2)
-            cv2.imshow("mDEV Vision", frame)
+            cv2.imshow("VIEaim Vision", frame)
             if cv2.waitKey(1) & 0xFF == ord('0'):
                 break
 
     def clean_up():
-        print("\n[INFO] F4 WAS PRESSED. KILLING...")
+        print("\n[INFO] F4 WAS PRESSED. QUITTING...")
         Aimbot.screen.close()
         os._exit(0)
 
-if __name__ == "__main__": print("You are in the wrong directory and are running the wrong file; you must run run.bat")
+if __name__ == "__main__": print("You are in the wrong directory and are running the wrong file; you must run START.bat")

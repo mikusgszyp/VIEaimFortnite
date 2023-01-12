@@ -17,9 +17,9 @@ def on_release(key):
         pass
 
 def main():
-    global mdev
-    mdev = Aimbot(collect_data = "collect_data" in sys.argv)
-    mdev.start()
+    global vieaim
+    vieaim = Aimbot(collect_data = "collect_data" in sys.argv)
+    vieaim.start()
 
 def setup():
     path = "lib/config"
@@ -50,9 +50,10 @@ def setup():
 if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
     print(colored('''
-    V 1.3
-    Fixed Crash''', "green"))
+    V 1.4
+    Improved Stability''', "green"))
     print(colored('''
     FortnitePythonAimAsist (VIEaim) by:
        _  _    ___   ___ 
@@ -64,23 +65,18 @@ if __name__ == "__main__":
       
 by--mikusgszyp (on github)
 [INFO] to aim, hold left mouse button
-[INFO] set game sensivity, to this:
-X and Y sensivity: 15.2
-Targeting and Scoping sensivity: 37.0 (or lower)
     (Neural Network Aimbot)''', "blue"))
 
     print(colored('''
     [WARNING!] You need nvidia geforce 1050 or newer to run this without problems!
     ONLY Nvidia supported.
-
     If you have CUDA toolkit installed and you got errors, then uninstall CUDA and re-launch install_the_req.bat
-
     If that doesn't work, then install CUDA toolskit 11 from setup folder''', "red"))
 
     path_exists = os.path.exists("lib/config/config.json")
     if not path_exists or ("setup" in sys.argv):
         if not path_exists:
-            print("[!] Sensitivity configuration is not set")
+            print("[!] Sensitivity configuration is not set, you must run SENSIVITY SETUP.bat")
         setup()
     path_exists = os.path.exists("lib/data")
     if "collect_data" in sys.argv and not path_exists:
