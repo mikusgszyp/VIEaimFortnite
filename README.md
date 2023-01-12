@@ -31,6 +31,7 @@ after install reboot PC
 1.4:
 
 -Improved Stability
+
 -Added config editor
 
 
