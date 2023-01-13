@@ -52,7 +52,7 @@ class Aimbot:
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     screen = mss.mss()
-    pixel_increment = 3 #controls how many pixels the mouse moves for each relative movement
+    pixel_increment = 1.1 #controls how many pixels the mouse moves for each relative movement
     with open("lib/config/config.json") as f:
         sens_config = json.load(f)
     aimbot_status = colored("ENABLED", 'green')
@@ -105,7 +105,7 @@ class Aimbot:
 
     def is_target_locked(x, y):
         #plus/minus 5 pixel threshold
-        threshold = 5
+        threshold = 1
         return True if 960 - threshold <= x <= 960 + threshold and 540 - threshold <= y <= 540 + threshold else False
 
     def move_crosshair(self, x, y):
