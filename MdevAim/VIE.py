@@ -37,8 +37,8 @@ def setup():
                 print("[!] Invalid Input. Make sure to enter only the number (e.g. 6.9)")
         return number
 
-    xy_sens = prompt("X-Axis and Y-Axis Sensitivity (from in-game settings): ")
-    targeting_sens = prompt("Targeting Sensitivity (from in-game settings): ")
+    xy_sens = prompt("X-Axis and Y-Axis Sensitivity (from in-game settings(recoomended: 1-30)): ")
+    targeting_sens = prompt("Targeting Sensitivity (from in-game settings)(recoomended: 1-45): ")
 
     print("[INFO] Your in-game targeting sensitivity must be the same as your scoping sensitivity")
     sensitivity_settings = {"xy_sens": xy_sens, "targeting_sens": targeting_sens, "xy_scale": 10/xy_sens, "targeting_scale": 1000/(targeting_sens * xy_sens)}

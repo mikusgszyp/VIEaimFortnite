@@ -52,12 +52,12 @@ class Aimbot:
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     screen = mss.mss()
-    pixel_increment = 1.1 #controls how many pixels the mouse moves for each relative movement
+    pixel_increment = 0.87 #controls how many pixels the mouse moves for each relative movement
     with open("lib/config/config.json") as f:
         sens_config = json.load(f)
     aimbot_status = colored("ENABLED", 'green')
 
-    def __init__(self, box_constant = 690, collect_data = False, mouse_delay = 0.0001, debug = False):
+    def __init__(self, box_constant = 660, collect_data = False, mouse_delay = 0.0001, debug = False):
         #controls the initial centered box width and height of the "Lunar Vision" window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
@@ -70,7 +70,7 @@ class Aimbot:
             print(colored("[!] Check your PyTorch installation, else performance will be poor", "red"))
 
         self.model.conf = 0.65 # base confidence threshold (or base detection (0-1)
-        self.model.iou = 0.65 # NMS IoU (0-1)
+        self.model.iou = 1.00 # NMS IoU (0-1)
         self.collect_data = collect_data
         self.mouse_delay = mouse_delay
         self.debug = debug
@@ -105,7 +105,7 @@ class Aimbot:
 
     def is_target_locked(x, y):
         #plus/minus 5 pixel threshold
-        threshold = 1
+        threshold = 3
         return True if 960 - threshold <= x <= 960 + threshold and 540 - threshold <= y <= 540 + threshold else False
 
     def move_crosshair(self, x, y):
