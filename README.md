@@ -28,6 +28,14 @@ after install reboot PC
 
 
 # Changelog
+1.6:
+
+-aiming and hints updated
+
+1.5:
+
+-Fucked up :D
+
 1.4:
 
 -Improved Stability
