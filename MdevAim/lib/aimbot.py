@@ -61,8 +61,8 @@ class Aimbot:
         #controls the initial centered box width and height of the "Lunar Vision" window
         self.box_constant = box_constant #controls the size of the detection box (equaling the width and height)
 
-        print("[INFO] Loading the neural network model")
-        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='lib/best.pt', force_reload = True)
+        print("[INFO] Loading the YoloForVIEAIM to best.pt")
+        self.model = torch.hub.load('mikusgszyp/YoloForVIEAIM', 'custom', path='lib/best.pt', force_reload = True)
         if torch.cuda.is_available():
             print(colored("CUDA ACCELERATION [ENABLED]", "green"))
         else:
