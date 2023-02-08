@@ -52,8 +52,8 @@ if __name__ == "__main__":
     os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
     print(colored('''
-    V 1.4
-    Improved Stability''', "green"))
+    V 1.7
+    Changed download source''', "green"))
     print(colored('''
     FortnitePythonAimAsist (VIEaim) by:
        _  _    ___   ___ 
