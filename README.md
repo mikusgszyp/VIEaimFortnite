@@ -28,6 +28,10 @@ after install reboot PC
 
 
 # Changelog
+1.7:
+
+-changed downnload sourcce
+
 1.6:
 
 -aiming and hints updated
